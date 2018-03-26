@@ -1,8 +1,8 @@
-import { SAVE_COMMENT } from './types';
+import { EXAMPLE } from './types';
 
-export function saveComment(comment) {
+export function ExampleAction(pl) {
     return {
-        type: SAVE_COMMENT,
-        payload: comment
+        type: EXAMPLE,
+        payload: pl
     }
 }
