@@ -1,1 +1,3 @@
-## A good starting point for react - testing, redux, webpack
+## Better than a Spreadsheet
+
+Optimize your job search with tracking, reminders and rewards

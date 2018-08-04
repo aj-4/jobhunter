@@ -1,6 +1,6 @@
 import { EXAMPLE } from '../actions/types';
 
-export default function(state = {}, action) {
+export const example = (state = {}, action) => {
     switch(action.type) {
         case EXAMPLE:
             return Object.assign({}, state, {
@@ -8,4 +8,13 @@ export default function(state = {}, action) {
             });
     }
     return state;
+}
+
+export const saveEmail = (state ={}, action) => {
+	switch(action.type) {
+		case SAVE_EMAIL:
+			return Object.assign({}, state, {
+				
+			})
+	}
 }
