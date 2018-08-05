@@ -5,9 +5,9 @@
   "main": "index.js",
   "repository": "github.com/aj-4/jobhunter",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot",
+    "start": "webpack-dev-server",
     "build": "webpack ./webpack.config.js -w ",
-    "compile:sass": "node-sass sass/main.scss style/style.css -w"
+    "compile:sass": "node-sass client/sass/main.scss client/style/style.css -w"
   },
   "author": "Aaron Pietsch",
   "license": "ISC",
@@ -18,19 +18,30 @@
     "babel-preset-react": "^6.1.18",
     "jquery": "^3.3.1",
     "jsdom": "^8.1.0",
-    "react-addons-test-utils": "^0.14.7",
+    "nodemon": "^1.18.3",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
-    "lodash": "^3.10.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    
+    "morgan": "^1.9.0",
+    "mysql": "^2.16.0",
     "node-sass": "^4.8.3",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "react-redux": "4.3.0",
-    "react-router": "^2.0.1",
-    "react-router-dom": "^4.2.2",
-    "redux": "^3.0.4"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "promise-mysql": "^3.3.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^4.38.0"
   }
 }

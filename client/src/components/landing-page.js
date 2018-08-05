@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux'
+import { emailSubscribeAction } from '../actions'
 
 export default class LandingPage extends Component {
 
@@ -18,7 +19,7 @@ export default class LandingPage extends Component {
 
   validateEmail(email) {
   	if (email.includes('.com') && email.includes('@')) {
-  		// trigger save action
+  		emailSubscribeAction(email);
   		this.setState({submitSuccess: true});
   	} else {
   		this.setState({submitSuccess: false});
@@ -42,7 +43,7 @@ export default class LandingPage extends Component {
         <p>Coming Soon</p>
         {
         	submitSuccess ? 
-        	<div> Thanks, we'll let you know about updates </div> :
+        	<div> Thanks, we'll let you know about any updates </div> :
         	<form onSubmit={this.saveMailingListEmail.bind(this)}>
         		<input 
 	        		style={this.emailBoxStyle()} 

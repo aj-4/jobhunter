@@ -1,6 +1,6 @@
-import { EXAMPLE } from '../actions/types';
+import { EXAMPLE, EMAIL_SUB } from '../actions/types';
 
-export const example = (state = {}, action) => {
+export const exampleReducer = (state = {}, action) => {
     switch(action.type) {
         case EXAMPLE:
             return Object.assign({}, state, {
@@ -10,11 +10,12 @@ export const example = (state = {}, action) => {
     return state;
 }
 
-export const saveEmail = (state ={}, action) => {
+export const landingPageReducer = (state ={}, action) => {
 	switch(action.type) {
-		case SAVE_EMAIL:
+		case EMAIL_SUB:
 			return Object.assign({}, state, {
-				
+				emailSaved: true
 			})
 	}
+    return state;
 }

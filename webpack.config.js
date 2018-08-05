@@ -1,9 +1,12 @@
+const path = require('path');
+
 module.exports = {
   entry: [
-    './src/index.js'
+    './client/src/index.js'
   ],
   output: {
-    path: __dirname,
+    context: __dirname,
+    path: path.resolve(__dirname, 'client/dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -21,7 +24,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './',
+    contentBase: './client',
     hot: true
   }
 };

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import ExampleReducer from './reducer_example';
+import { landingPageReducer } from './landing-page-reducers';
 
 const rootReducer = combineReducers({
-  example: ExampleReducer
+  landingPage: landingPageReducer
 });
 
 export default rootReducer;

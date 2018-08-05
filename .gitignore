@@ -1,3 +1,5 @@
 **/package-lock.json
 **/node_modules
-**/style
+/client/style
+**/bundle.js
+/app/config.js
