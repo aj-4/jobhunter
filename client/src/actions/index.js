@@ -7,6 +7,19 @@ export function ExampleAction(pl) {
     }
 }
 
+function newJobSearch(jobSearchData) {
+	return fetch(
+		'/api/new_job_search',
+		{
+			method: 'POST',
+			body: JSON.stringify({jobSearchData}),
+			headers:{
+				'Content-Type': 'application/json'
+			}
+		}
+	)
+}
+
 function emailSubscribe(email) {
 	return fetch(
 		'/api/subscribe', 

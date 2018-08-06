@@ -8,11 +8,13 @@ const MailController = require('../controllers/mailController');
 const allowOnly = require('../services/routesHelper').allowOnly;
 const UserController = require('../controllers/userController');
 const AdminController = require('../controllers/adminController');
+const JobsController = require('../controllers/jobsController');
 
 const APIRoutes = (passport) => {
 
 	// Subscribe to Mailing List
-	router.post('/subscribe', MailController.joinMailingList)
+	router.post('/subscribe', MailController.joinMailingList);
+	router.post('/new_job_search', JobsController.newJobSearch);
 
 	// User Actions
     router.post('/signup', AuthController.signUp);

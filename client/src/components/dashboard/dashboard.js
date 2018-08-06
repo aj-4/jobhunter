@@ -1,36 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { emailSubscribeAction } from '../actions'
 
-export default class LandingPage extends Component {
+export default class Dashboard extends Component {
 
   state = {
   	submitSuccess: null
-  }
-
-  emailBoxStyle() {
-  	const {submitSuccess} = this.state;
-  	if (submitSuccess === false) {
-  		return {
-  			border: '2px solid red'
-  		}
-  	}
-  }
-
-  validateEmail(email) {
-  	if (email.includes('.com') && email.includes('@')) {
-  		emailSubscribeAction(email);
-  		this.setState({submitSuccess: true});
-  	} else {
-  		this.setState({submitSuccess: false});
-  	}
-  }
-
-  saveMailingListEmail(e) {
-  	e.preventDefault();
-  	const email = this.refs.emailText.value;
-  	console.log('Got email:', this.refs.emailText.value);
-  	this.validateEmail(email);
   }
 
   render() {
