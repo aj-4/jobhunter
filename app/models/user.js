@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 
 const config = require('../config');
 const db = require('../services/database');
+const JobSearchModel = require('./jobSearch');
+const JobWorkflowModel = require('./jobWorkflow');
 
 // 1: The model schema.
 const modelDefinition = {
@@ -35,6 +37,9 @@ const modelOptions = {
 
 // 3: Define the User model.
 const UserModel = db.define('user', modelDefinition, modelOptions);
+
+UserModel.hasMany(JobSearchModel, {foreignKey: 'user_id'});
+UserModel.hasMany(JobWorkflowModel, {foreignKey: 'user_id'});
 
 UserModel.prototype.comparePasswords = comparePasswords;
 

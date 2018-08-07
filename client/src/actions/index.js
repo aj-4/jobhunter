@@ -1,4 +1,4 @@
-import { EXAMPLE, EMAIL_SUB } from './types';
+import { EXAMPLE, EMAIL_SUB, NEW_JOB_SEARCH } from './types';
 
 export function ExampleAction(pl) {
     return {
@@ -12,12 +12,18 @@ function newJobSearch(jobSearchData) {
 		'/api/new_job_search',
 		{
 			method: 'POST',
-			body: JSON.stringify({jobSearchData}),
+			body: JSON.stringify(jobSearchData),
 			headers:{
 				'Content-Type': 'application/json'
 			}
 		}
 	)
+}
+export function newJobSearchAction(jobSearchData) {
+	return {
+		type: NEW_JOB_SEARCH,
+		payload: newJobSearch(jobSearchData)
+	}
 }
 
 function emailSubscribe(email) {
@@ -32,7 +38,6 @@ function emailSubscribe(email) {
   		}
   	);
 }
-
 export function emailSubscribeAction(email) {
 	return {
 		type: EMAIL_SUB,

@@ -6,7 +6,7 @@ export default class JobInputRow extends Component {
 		this.state = {
 			title: '',
 			company: '',
-			type: 'applied'
+			status: 'applied'
 		}
 	}
 
@@ -18,8 +18,8 @@ export default class JobInputRow extends Component {
 		this.setState({company: e.target.value})
 	}
 
-	_handleTypeChange(e) {
-		this.setState({type: e.target.value})
+	_handleStatusChange(e) {
+		this.setState({status: e.target.value})
 	}
 
 	handleSendUpdate() {
@@ -33,9 +33,9 @@ export default class JobInputRow extends Component {
 		return (
 			<form className={'job-input-row'} onBlur={e => this.handleSendUpdate(e)}>
   				<span>{index + 1}</span>
-  				<input type="text" placeholder="Job Title" onChange={e => this._handleTitleChange(e)} />
+  				<input type="text" placeholder="Position Name" onChange={e => this._handleTitleChange(e)} />
   				<input type="text" placeholder="Company" onChange={e => this._handleCompanyChange(e)}/>
-  				<select onChange={e => this._handleTypeChange(e)}>
+  				<select onChange={e => this._handleStatusChange(e)}>
   					<option value="applied">Applied</option>
 				  	<option value="responded">Company Responded</option>
 				  	<option value="interview">Interview</option>

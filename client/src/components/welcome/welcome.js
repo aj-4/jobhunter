@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import JobInputRow from './job-input-row';
-import newJobSearchAction from '../actions';
+import {newJobSearchAction} from '../../actions';
 
 // flow for a new user / user with a new job
 
@@ -11,6 +11,7 @@ export default class Welcome extends Component {
   constructor(props) {
   	super(props);
   	this.state = {
+  		userId: 1,
   		onPage: 0,
   		hasStartedJobSearch: false,
   		jobType: 'tech',
@@ -22,9 +23,9 @@ export default class Welcome extends Component {
 
   updateJobRow(jobData, index) {
   	const {jobsAppliedRows} = this.state;
-  	const {title, company, type} = jobData;
+  	const {title, company, status} = jobData;
 
-  	const jobObject = {title, company, type};
+  	const jobObject = {title, company, status};
   	jobsAppliedRows[index] = jobObject;
 
   	this.setState({jobsAppliedRows});

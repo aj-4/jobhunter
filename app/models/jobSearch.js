@@ -9,33 +9,31 @@ const db = require('../services/database');
 
 const JobWorkflowModel = require('./jobWorkflow');
 
-// 1: The model schema.
+// 1: There are many job workflows tied to one job search
 const modelDefinition = {
-    is_fresh_search: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
-    },
 
-    search_category: {
+	user_id: {
+		type: Sequelize.INTEGER,
+		allowNull: false
+	},
+
+	search_for_job_types: {
         type: Sequelize.STRING,
-        defaultValue: config.userRoles.user
     },
 
-    number_jobs_applied_for: {
-    	type: Sequelize.INTEGER
+    is_fresh_search: {
+        type: Sequelize.BOOLEAN
     }
 };
 
 // 2: The model options.
 const modelOptions = {
-    hooks: {
-        beforeValidate: hashPassword
-    }
+    
 };
 
 // 3: Define the User model.
 const JobSearchModel = db.define('job_search', modelDefinition, modelOptions);
 
-JobSearchModel.hasMany(JobWorkflowModel);
+JobSearchModel.hasMany(JobWorkflowModel, { foreignKey: 'job_search_id' });
 
 module.exports = JobSearchModel;

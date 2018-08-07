@@ -9,12 +9,13 @@ const allowOnly = require('../services/routesHelper').allowOnly;
 const UserController = require('../controllers/userController');
 const AdminController = require('../controllers/adminController');
 const JobsController = require('../controllers/jobsController');
+const CompaniesController = require('../controllers/companiesController');
 
 const APIRoutes = (passport) => {
 
 	// Subscribe to Mailing List
 	router.post('/subscribe', MailController.joinMailingList);
-	router.post('/new_job_search', JobsController.newJobSearch);
+	router.post('/new_job_search', JobsController.newJobSearch, CompaniesController.findOrCreate, JobsController.insertWorkflows);
 
 	// User Actions
     router.post('/signup', AuthController.signUp);

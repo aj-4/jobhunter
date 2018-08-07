@@ -1,22 +1,38 @@
 // The User model.
 'use strict'; 
 
+const Sequelize = require('sequelize');
+
 const config = require('../config');
 const db = require('../services/database');
-
 const JobSearch = require ('./jobSearch');
 
 // 1: The model schema.
 const modelDefinition = {
-    title: {
-        type: Sequelize.STRING,
-        unique: true,
+    
+    user_id: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
 
-    status: {
+    job_search_id: {
+    	type: Sequelize.INTEGER,
+    	allowNull: false
+    },
+
+    company_id: {
+    	type: Sequelize.INTEGER,
+        allowNull: false
+    },
+
+    job_title: {
         type: Sequelize.STRING,
-        defaultValue: config.userRoles.user
+        allowNull: false
+    },
+
+    workflow_status: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 };
 
@@ -26,8 +42,6 @@ const modelOptions = {
 };
 
 // 3: Define the User model.
-const JobAppliedToModel = db.define('jobs_applied_to', modelDefinition, modelOptions);
-
-// JobAppliedToModel.belongsTo(JobSearch);
+const JobAppliedToModel = db.define('job_workflow', modelDefinition, modelOptions);
 
 module.exports = JobAppliedToModel;

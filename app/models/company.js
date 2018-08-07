@@ -33,6 +33,6 @@ const modelOptions = {
 const CompanyModel = db.define('company', modelDefinition, modelOptions);
 
 // foreign keys
-CompanyModel.hasMany(JobWorkflowModel);
+CompanyModel.hasMany(JobWorkflowModel, { foreignKey: 'company_id' });
 
 module.exports = CompanyModel;
