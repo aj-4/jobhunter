@@ -1,0 +1,19 @@
+.nav {
+    background-color: $color-secondary;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    padding: 5px;
+    .grass {
+        height: 30px;
+        width: 100%;
+        background-color: #ffee00;
+    }
+    .hunter {
+        height: 75px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}

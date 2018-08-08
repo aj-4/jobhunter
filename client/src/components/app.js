@@ -14,8 +14,8 @@ export default class App extends Component {
     return (
       <div>
         {/*<LandingPage />*/}
-        <Welcome />
-        {/*<Dashboard />*/}
+        {/* <Welcome /> */}
+        <Dashboard />
       </div>
     );
   }
