@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import { landingPageReducer } from './landing-page-reducers';
+import { 
+  landingPageReducer, 
+  jobSearchReducer 
+} from './job_reducers';
 
 const rootReducer = combineReducers({
-  landingPage: landingPageReducer
+  landingPage: landingPageReducer,
+  jobSearch: jobSearchReducer
 });
 
 export default rootReducer;

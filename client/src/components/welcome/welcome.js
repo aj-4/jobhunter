@@ -50,7 +50,6 @@ export default class Welcome extends Component {
 
   	newJobSearchAction({jobSearchData: this.state});
 
-  	console.log('success');
   	this.setState({
   		onPage: this.state.onPage + 1
   	})

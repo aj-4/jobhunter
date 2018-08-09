@@ -1,11 +1,18 @@
 .buckets {
     width: 100%;
     text-align: center;
+
     .bucket {
         display: inline-block;
         text-align: center;
-        margin: 20px 40px; 
+        padding: 20px 40px;
     }
+
+    .bucket:hover {
+        background-color: lightblue;
+        cursor: pointer;
+    }
+
     .bucket-number {
         font-size: 24px;
         font-weight: bold;

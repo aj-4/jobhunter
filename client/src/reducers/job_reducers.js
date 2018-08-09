@@ -1,4 +1,4 @@
-import { EXAMPLE, EMAIL_SUB } from '../actions/types';
+import { EXAMPLE, EMAIL_SUB, GET_JOB_SEARCH } from '../actions/types';
 
 export const exampleReducer = (state = {}, action) => {
     switch(action.type) {
@@ -17,5 +17,15 @@ export const landingPageReducer = (state ={}, action) => {
 				emailSaved: true
 			})
 	}
+    return state;
+}
+
+export const jobSearchReducer = (state ={}, action) => {
+    switch(action.type) {
+        case GET_JOB_SEARCH:
+            return Object.assign({}, state, {
+                jobSearchBuckets: action.payload.workflows
+            })
+    }
     return state;
 }

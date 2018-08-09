@@ -9,13 +9,18 @@ export default class Dashboard extends Component {
   	submitSuccess: null
   }
 
+  componentDidMount() {
+    const {getJobSearch} = this.props;
+    getJobSearch(47);
+  }
+
   render() {
-  	const {submitSuccess} = this.state;
+    const {jobSearchBuckets} = this.props;
 
     return (
       <div className="dashboard-main">
         <Nav />
-        <Buckets />
+        <Buckets jobSearchBuckets={jobSearchBuckets} />
       </div>
     );
   }

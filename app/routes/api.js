@@ -14,10 +14,13 @@ const CompaniesController = require('../controllers/companiesController');
 const APIRoutes = (passport) => {
 
 	// Subscribe to Mailing List
-	router.post('/subscribe', MailController.joinMailingList);
-	router.post('/new_job_search', JobsController.newJobSearch, CompaniesController.findOrCreate, JobsController.insertWorkflows);
+    router.post('/subscribe', MailController.joinMailingList);
+    
+    // Get all workflows for job search
+    router.post('/new_job_search', JobsController.newJobSearch, CompaniesController.findOrCreate, JobsController.insertWorkflows);
+    router.get('/get_job_search/:jobSearchId', JobsController.getJobSearch);
 
-	// User Actions
+	// Login / Sign Up
     router.post('/signup', AuthController.signUp);
     router.post('/authenticate', AuthController.authenticateUser);
 

@@ -39,13 +39,9 @@ JobsController.newJobSearch = (req, res, next) => {
 
 const insertWorkflow = (req, workflow) => {
 
-    console.log('reqbody is', req.body);
-
     const {jobSearchData: {userId, jobSearchId}} = req.body;
 
 	return db.sync().then(() => {
-        console.log('workflow is', workflow, 'id is', userId);
-        console.log('all data', userId, jobSearchId, workflow.companyId, workflow.title, workflow.status);
 
             const newWorkflow = {
                 user_id: userId,
@@ -57,7 +53,6 @@ const insertWorkflow = (req, workflow) => {
 
             return JobWorkflow.create(newWorkflow)
             .then(() => {
-                console.log('successfully created workflow');
                 return;
             })
             .catch(err => {
@@ -74,8 +69,6 @@ JobsController.insertWorkflows = (req, res) => {
 
 	const {jobSearchData: {jobsAppliedRows, jobSearchId}} = req.body;
 
-	console.log(`Inserting ${jobsAppliedRows.length} new job workflows`);
-
 	if(!jobSearchId) {
         res.json({ message: 'No Job Search ID found' });
     } else {
@@ -87,12 +80,35 @@ JobsController.insertWorkflows = (req, res) => {
         });
 
     	Promise.all(workflowPromises).then(resolution => {
-    		console.log('resolved promises', resolution);
             return res.status(201).json({ message: 'Added Job Workflows!' });    		
     	}).catch((error) => {
             res.status(403).json({ error: error, message: 'Could not create workflows' });
         });
 
+    }
+}
+
+JobsController.getJobSearch = (req, res) => {
+    const {jobSearchId} = req.params;
+
+    if (!jobSearchId) {
+        res.json({ message: 'No Job Search Selected' });
+    } else {
+        JobWorkflow.findAll({
+            where: {job_search_id: jobSearchId}
+            // group: ['workflow_status']
+        })
+        .then(rows => {
+            const rowsMap = {};
+            rows.forEach(row => {
+                if (!rowsMap[row.workflow_status]) {
+                    rowsMap[row.workflow_status] = [];
+                }
+                rowsMap[row.workflow_status].push(row);
+            });
+            return res.status(201).json({workflows: rowsMap})
+        })
+        .catch(err => res.json({error: err, message: 'Failed to get job search'}))
     }
 }
 

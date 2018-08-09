@@ -1,4 +1,9 @@
-import { EXAMPLE, EMAIL_SUB, NEW_JOB_SEARCH } from './types';
+import { 
+	EXAMPLE, 
+	EMAIL_SUB, 
+	NEW_JOB_SEARCH,
+	GET_JOB_SEARCH
+} from './types';
 
 export function ExampleAction(pl) {
     return {
@@ -24,6 +29,23 @@ export function newJobSearchAction(jobSearchData) {
 		type: NEW_JOB_SEARCH,
 		payload: newJobSearch(jobSearchData)
 	}
+}
+
+export function getJobSearch(jobSearchId) {
+	return fetch(`/api/get_job_search/${jobSearchId}`);
+}
+export function getJobSearchAction(jobSearchId, dispatch) {
+	getJobSearch(jobSearchId)
+	.then(res => res.json())
+	.then(res2 => {
+		return dispatch({
+			type: GET_JOB_SEARCH,
+			payload: res2
+		});
+	})
+	.catch(err => {
+		console.log('got err', err);
+	})
 }
 
 function emailSubscribe(email) {

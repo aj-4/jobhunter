@@ -29,7 +29,6 @@ export default class LandingPage extends Component {
   saveMailingListEmail(e) {
   	e.preventDefault();
   	const email = this.refs.emailText.value;
-  	console.log('Got email:', this.refs.emailText.value);
   	this.validateEmail(email);
   }
 

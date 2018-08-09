@@ -11,8 +11,6 @@ const findOrCreateCompany = (model, conditions, req, index) => {
 	
 	const {jobSearchData: {jobsAppliedRows}} = req.body;
 
-	console.log('running FOC');
-
 	return model.findOrCreate({where: conditions})
 	.spread((company, created) => {
 		req.body.jobSearchData.jobsAppliedRows[index].companyId = company.dataValues.id;
