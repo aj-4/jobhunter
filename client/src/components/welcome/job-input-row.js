@@ -3,10 +3,11 @@ import React, {Component} from 'react';
 export default class JobInputRow extends Component {
 	constructor(props){
 		super(props);
+		const {title, company, status} = this.props;
 		this.state = {
-			title: '',
-			company: '',
-			status: 'applied'
+			title: title || '',
+			company: company || '',
+			status: status || 'applied'
 		}
 	}
 
@@ -28,11 +29,11 @@ export default class JobInputRow extends Component {
 	}
 
 	render() {
-		const {index} = this.props;
+		const {label, index} = this.props;
 
 		return (
 			<form className={'job-input-row'} onBlur={e => this.handleSendUpdate(e)}>
-  				<span>{index + 1}</span>
+  				<span>{label || index + 1}</span>
   				<input type="text" placeholder="Position Name" onChange={e => this._handleTitleChange(e)} />
   				<input type="text" placeholder="Company" onChange={e => this._handleCompanyChange(e)}/>
   				<select onChange={e => this._handleStatusChange(e)}>

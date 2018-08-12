@@ -1,13 +1,11 @@
 .dashboard-main {
     width: 100%;
     margin: 0;
+    text-align: center;
 }
 
 .add-job {
-    position: absolute;
-    top: 10%;
-    right: 10%;
-    display: 'none';
+    position: inline-block;
     transition: .1s ease;
 }
 

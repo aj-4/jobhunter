@@ -21,14 +21,6 @@ export default (props) => {
         {
           borderBottom: '1px solid black',
         }
-    
-    const iconStyle = active ?
-        {
-          display: 'block'
-        } : 
-        {
-          display: 'none'
-        }
 
     return (
         <div 
@@ -39,11 +31,6 @@ export default (props) => {
             <div className="bucket-number">{number}</div>
             <div>{title}</div>
             <img src={icon} />
-            <img 
-                className="add-job" 
-                style={iconStyle} 
-                src="/src/static/plus.png" 
-            />
         </div>
     );
 }

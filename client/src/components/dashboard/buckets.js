@@ -38,7 +38,6 @@ export default class Buckets extends Component {
 
     return (
       <div className="buckets">
-        <h4>Summary</h4>
         <div>
           {allJobSearchData && this._renderBuckets()}
         </div>

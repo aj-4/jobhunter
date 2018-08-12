@@ -8,7 +8,7 @@ export const getBucketDayMonthTrends = (bucketData) => {
 
     bucketData.forEach(bucket => {
       let date = new Date(bucket.updatedAt);
-      let dayStamp = moment(date).startOf('day').fromNow();
+      let dayStamp = moment(date).utcOffset(-8).fromNow();
       let dayParsed = dayStamp.split(' ');
 
       // if it was updated today
@@ -38,6 +38,10 @@ export const getBucketDayMonthTrends = (bucketData) => {
 
         // if it was updated this week
         let daysAgo = dayParsed[0];
+        if (dayParsed[0] === 'a') {
+            daysAgo = 1;
+        }
+
         if (!workflowsUpdatedDaysAgo[daysAgo]) {
           workflowsUpdatedDaysAgo[daysAgo] = [];
         }

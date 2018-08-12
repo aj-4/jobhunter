@@ -2,86 +2,98 @@ import React, { Component } from 'react';
 import {SimpleLine, SimpleBars} from '../atoms/sparklines';
 
 import WorkflowRow from './workflow-row';
-import {
-    getBucketDayMonthTrends,
-    getDailyUpdateVolume,
-    getWeeklyUpdateVolume
-} from '../../utils/date-utils';
-
 
 export default class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        this._renderGraphs = this._renderGraphs.bind(this);
+        this.state = {
+            addingNew: false,
+            editing: {}
+        }
     }
 
-    hydrateGraphStats() {
-        const {workflows} = this.props;
-        let pastSevenDaysVolume = [];
-        let pastSixWeeksVolume = [];
-
-        if (workflows && workflows.length) {
-            const graphData = getBucketDayMonthTrends(workflows);
-            pastSevenDaysVolume = getDailyUpdateVolume(graphData.workflowDaysAgoSizes);
-            pastSixWeeksVolume = getWeeklyUpdateVolume(graphData.workflowWeeksAgoSizes);
-
-            return {
-                pastSevenDaysVolume,
-                pastSixWeeksVolume
-            };
-        }
-
-        return false;
+    componentWillReceiveProps() {
+        this.setState({addingNew: false})
     }
 
-    _renderGraphs() {
-        const stats = this.hydrateGraphStats();
+    onClickAdd(workflowName) {
+        this.setState({
+            addingNew: true
+        })
+    }
 
-        if (stats) {
-            return (
-                <div className="graphs">
-                    <SimpleLine
-                        label="Activity This Week" 
-                        data={stats.pastSevenDaysVolume}
-                    />
-                    <SimpleBars 
-                        label="Past 6 weeks" 
-                        data={stats.pastSixWeeksVolume}
-                    />
-                </div>
-            );
+    onClickEdit(workflowId) {
+        const {editing} = this.state;
+        this.setState({
+            editing: Object.assign({[workflowId]: true}, editing)
+        })
+    }
+
+    onFinishEdit(workflowId, fields) {
+        const {editing} = this.state;
+        const isValidEdit = this.validateEdit(fields);
+
+        if (isValidEdit) {
+            // UPDATE_JOB action
+            this.setState({
+                editing: Object.assign({[workflowId]: false}, editing)
+            })
         }
+    }
 
-        return <div> Nothing Here Right Now </div>
-        
+    isValidEdit(fields) {
+
     }
 
     _renderWorkflowList() {
-    const {workflows} = this.props;
-    return (
-        <div>
-            {
-            workflows && workflows.length &&
-            workflows.map((workflow, i) => {
-                return <WorkflowRow key={i} workflow={workflow} />
-            })
-            }
-        </div>
-    );
+        const {editing, addingNew} = this.state
+        const {workflows, workflowName} = this.props;
+        let blankWorkflow = {
+            workflow_status: workflowName,
+            company: {name: ''}
+        }
+        return (
+            <div>
+                {
+                    addingNew &&
+                    <WorkflowRow 
+                        key={'new'} 
+                        workflow={blankWorkflow}
+                        editing={true}
+                    />
+                }
+                {
+                    workflows && workflows.length &&
+                    workflows.map((workflow, i) => {
+                        return <WorkflowRow 
+                                    key={i} 
+                                    workflow={workflow} 
+                                    editing={editing[i]}
+                                />
+                    })
+                }
+            </div>
+        );
     }
 
     render() {
-    const {workflowName} = this.props;
-    return (
-        <div 
-            className="workflow-list" 
-            style={{backgroundColor: 'lightgrey'}}
-        >
-            <h4>{workflowName}</h4>
-            {this._renderGraphs()}
-            {this._renderWorkflowList()}
-        </div>
-    );
+        const {addingNew} = this.state;    
+        const {workflowName} = this.props;
+        return (
+            <div 
+                className="workflow-list" 
+                style={{backgroundColor: 'lightgrey'}}
+            >
+                <h4>{workflowName}</h4>
+                <img 
+                    className="add-job" 
+                    src="/src/static/plus.png" 
+                    onClick={() => this.onClickAdd(workflowName)}
+                />
+
+                {this._renderWorkflowList()}
+            </div>
+        );
     }
 }
