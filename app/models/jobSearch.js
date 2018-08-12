@@ -7,8 +7,6 @@ const bcrypt = require('bcryptjs');
 const config = require('../config');
 const db = require('../services/database');
 
-const JobWorkflowModel = require('./jobWorkflow');
-
 // 1: There are many job workflows tied to one job search
 const modelDefinition = {
 
@@ -34,6 +32,5 @@ const modelOptions = {
 // 3: Define the User model.
 const JobSearchModel = db.define('job_search', modelDefinition, modelOptions);
 
-JobSearchModel.hasMany(JobWorkflowModel, { foreignKey: 'job_search_id' });
 
 module.exports = JobSearchModel;

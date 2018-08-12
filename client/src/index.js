@@ -6,8 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
 import App from './components/app';
-import Dashboard from './components/dashboard/dashboard';
-import DashboardContainer from './containers/dashboard';
+import DashboardContainer from './containers/dashboard-container';
 import Welcome from './components/welcome/welcome';
 import reducers from './reducers';
 

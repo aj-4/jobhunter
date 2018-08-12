@@ -56,7 +56,6 @@ export default class Welcome extends Component {
   }
 
   _handleJobTypeSelect(e) {
-  	console.log('job type', e.target.value);
   	this.setState({
   		jobType: e.target.value
   	});

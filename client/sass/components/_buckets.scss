@@ -4,13 +4,15 @@
 
     .bucket {
         display: inline-block;
+        position: relative;
         text-align: center;
-        padding: 20px 40px;
+        width: 20%;
+        padding: 20px 0;
     }
 
     .bucket:hover {
-        background-color: lightblue;
         cursor: pointer;
+        background-color: grey;
     }
 
     .bucket-number {

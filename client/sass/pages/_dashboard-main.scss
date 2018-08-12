@@ -2,3 +2,32 @@
     width: 100%;
     margin: 0;
 }
+
+.add-job {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    display: 'none';
+    transition: .1s ease;
+}
+
+.add-job:hover {
+    transform: scale(1.2);
+    transition: .1s ease;
+}
+
+.workflow-list {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-color: grey;
+    text-align: center;
+    padding: 10px 0;
+
+    .graphs {
+        margin: 40px 0;
+    }
+
+    .company-name {
+        display: block;
+    }
+}

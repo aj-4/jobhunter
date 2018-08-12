@@ -4,14 +4,17 @@ import {getJobSearchAction} from '../actions';
 
 const mapStateToProps = state => {
     return {
-        jobSearchBuckets: state.jobSearch.jobSearchBuckets
+        allJobSearchData: state.jobSearch.jobSearchBuckets,
+        addWorkflowSuccess: state.addWorkflowResult
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getJobSearch: (jobSearchId) => 
-            getJobSearchAction(jobSearchId, dispatch)
+            getJobSearchAction(jobSearchId, dispatch),
+        addWorkflow: (workflowData) =>
+            addWorkflowAction(workflowData, dispatch)
     }
 }
 

@@ -6,6 +6,10 @@ const config = require('../config');
 const db = require('../services/database');
 const JobSearch = require('../models/jobSearch');
 const JobWorkflow = require('../models/jobWorkflow');
+const Company = require('../models/company');
+const User = require('../models/user');
+
+const Sequelize = require('sequelize');
 
 // The authentication controller.
 const JobsController = {};
@@ -43,6 +47,8 @@ const insertWorkflow = (req, workflow) => {
 
 	return db.sync().then(() => {
 
+        console.log('reqbody for wf is ', req.body);
+
             const newWorkflow = {
                 user_id: userId,
     			job_search_id: jobSearchId,
@@ -51,7 +57,9 @@ const insertWorkflow = (req, workflow) => {
     			workflow_status: workflow.status
     		};
 
-            return JobWorkflow.create(newWorkflow)
+            return JobWorkflow.create(newWorkflow, {
+                include: [User, JobSearch, Company]
+            })
             .then(() => {
                 return;
             })
@@ -79,7 +87,7 @@ JobsController.insertWorkflows = (req, res) => {
             workflowPromises.push(insertWorkflow(req, workflow));
         });
 
-    	Promise.all(workflowPromises).then(resolution => {
+    	Promise.all(workflowPromises).then(() => {
             return res.status(201).json({ message: 'Added Job Workflows!' });    		
     	}).catch((error) => {
             res.status(403).json({ error: error, message: 'Could not create workflows' });
@@ -95,8 +103,8 @@ JobsController.getJobSearch = (req, res) => {
         res.json({ message: 'No Job Search Selected' });
     } else {
         JobWorkflow.findAll({
-            where: {job_search_id: jobSearchId}
-            // group: ['workflow_status']
+            where: {job_search_id: jobSearchId},
+            include: [{model: Company, attributes: ['name']}]
         })
         .then(rows => {
             const rowsMap = {};

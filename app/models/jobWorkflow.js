@@ -1,30 +1,16 @@
-// The User model.
 'use strict'; 
 
 const Sequelize = require('sequelize');
 
 const config = require('../config');
 const db = require('../services/database');
-const JobSearch = require ('./jobSearch');
+
+const UserModel = require('./user');
+const JobSearchModel = require('./jobSearch');
+const CompanyModel = require('./company');
 
 // 1: The model schema.
 const modelDefinition = {
-    
-    user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-
-    job_search_id: {
-    	type: Sequelize.INTEGER,
-    	allowNull: false
-    },
-
-    company_id: {
-    	type: Sequelize.INTEGER,
-        allowNull: false
-    },
-
     job_title: {
         type: Sequelize.STRING,
         allowNull: false
@@ -42,6 +28,10 @@ const modelOptions = {
 };
 
 // 3: Define the User model.
-const JobAppliedToModel = db.define('job_workflow', modelDefinition, modelOptions);
+const JobWorkflowModel = db.define('job_workflow', modelDefinition, modelOptions);
 
-module.exports = JobAppliedToModel;
+JobWorkflowModel.belongsTo(JobSearchModel, {foreignKey: 'job_search_id'});
+JobWorkflowModel.belongsTo(UserModel, {foreignKey: 'user_id'});
+JobWorkflowModel.belongsTo(CompanyModel, {foreignKey: 'company_id'});
+
+module.exports = JobWorkflowModel;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 export default class Workflow extends Component {
 
@@ -7,18 +8,23 @@ export default class Workflow extends Component {
       id,
       user_id,
       job_search_id,
-      company_id,
+      company,
       job_title,
       updatedAt,
       createdAt,
       workflow_status
     }} = this.props;
 
+    const updatedDate = moment(new Date(updatedAt))
+                        .utcOffset(-8)
+                        .fromNow()  
+
+
     return (
       <div className="workflow-row">
-        <span>{job_title} /// </span> 
-        <span>{company_id} /// </span>
-        <span>{updatedAt}</span>
+        <span className="workflow-company">{company.name} /// </span>
+        <span className="workflow-title">{job_title} /// </span> 
+        <span className="workflow-updated">Updated {updatedDate}</span>
       </div>
     );
   }

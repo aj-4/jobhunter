@@ -11,8 +11,11 @@ const findOrCreateCompany = (model, conditions, req, index) => {
 	
 	const {jobSearchData: {jobsAppliedRows}} = req.body;
 
+	console.log('in find or create', jobsAppliedRows, 'condition', conditions);
+
 	return model.findOrCreate({where: conditions})
 	.spread((company, created) => {
+		console.log('company is', company, 'created is', created);
 		req.body.jobSearchData.jobsAppliedRows[index].companyId = company.dataValues.id;
 	}).catch(err => 'Find or Create Company Failed')
 }
