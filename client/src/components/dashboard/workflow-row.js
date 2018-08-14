@@ -6,8 +6,10 @@ export default class Workflow extends Component {
 
   constructor(props) {
     super(props);
+    const {editing} = this.props;
     this.state = {
-      rowOpen: false
+      rowOpen: false,
+      editing
     }
   }
 
@@ -20,8 +22,11 @@ export default class Workflow extends Component {
     // deleteRowAction
   }
 
-  editRow() {
-    // editRowAction
+  onClickEdit() {
+      const {editing} = this.state;
+      this.setState({
+          editing: !editing
+      })
   }
 
   render() {
@@ -36,41 +41,45 @@ export default class Workflow extends Component {
         workflow_status,
         bulletNotes
       }, 
-      editing,
-      editRow
+      index
     } = this.props;
-    const {rowOpen} = this.state;
+    const {
+      editing, 
+      rowOpen
+    } = this.state;
 
     const updatedDate = moment(new Date(updatedAt))
                         .utcOffset(-8)
                         .fromNow()  
 
-    if (editing) {
-      return (
-        <JobInputRow
-          key={`job-new`} 
-          label={'New'} 
-          title={job_title}
-          company={company && company.name}
-          status={workflow_status}
-          // updateJobRow={this.updateJobRow.bind(this)}
-        />
-      );
-    }
-
     return (
-      <div className="workflow-row">
-        <span className="workflow-company">{company.name} /// </span>
-        <span className="workflow-title">{job_title} /// </span> 
-        <span className="workflow-updated">Updated {updatedDate}</span>
-        <img src="/src/static/eye.png" onClick={() => this.toggleRow()}/>
-        <img src="/src/static/pencil.png" onClick={() => this.editRow()}/>
-        {/* <img src="/src/static/red-x.png" onClick={() => this.deleteRow()}/> */}
-        <img src="/src/static/green-arrow.png" onClick={() => this.deleteRow()}/>
-        {
-          rowOpen &&
-          <div> Notes Here (key value pairs) </div>
-        }
+      <div>
+        <div className="workflow-row" onClick={() => this.toggleRow()}>
+          {
+            editing ?
+            <JobInputRow
+              key={`job-new`} 
+              label={'New'} 
+              title={job_title}
+              company={company && company.name}
+              status={workflow_status}
+            /> :
+            <div>
+              <span className="workflow-title">{job_title} </span> <span> at </span>
+              <span className="workflow-company">{company.name} </span>
+              <img src="/src/static/pencil.png" onClick={() => this.onClickEdit()}/>  
+            </div>
+          }
+          <img src="/src/static/red-x.png" onClick={() => this.deleteRow()}/>
+          <img src="/src/static/green-arrow.png" onClick={() => this.deleteRow()}/>
+          <div className="workflow-updated">Updated {updatedDate}</div>
+          {
+            rowOpen &&
+            <div className = "animated fadeIn"> 
+              Notes Here(key value pairs) 
+            </div>
+          }
+        </div>
       </div>
     );
   }

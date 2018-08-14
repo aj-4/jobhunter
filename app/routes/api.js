@@ -17,8 +17,12 @@ const APIRoutes = (passport) => {
     router.post('/subscribe', MailController.joinMailingList);
     
     // Get all workflows for job search
-    router.post('/new_job_search', JobsController.newJobSearch, CompaniesController.findOrCreate, JobsController.insertWorkflows);
     router.get('/get_job_search/:jobSearchId', JobsController.getJobSearch);
+
+    // Create Workflow / Search
+    router.post('/new_job_search', JobsController.newJobSearch, CompaniesController.findOrCreate, JobsController.insertWorkflows);
+    router.post('/add_workflow', CompaniesController.findOrCreate, JobsController.insertSingleWorkflow);
+    router.post('/update_workflow', CompaniesController.findOrCreate, JobsController.updateSingleWorkflow);
 
 	// Login / Sign Up
     router.post('/signup', AuthController.signUp);

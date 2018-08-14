@@ -18,32 +18,10 @@ export default class Dashboard extends Component {
     }
 
     onClickAdd(workflowName) {
+        const {addWorkflow} = this.props;
         this.setState({
             addingNew: true
         })
-    }
-
-    onClickEdit(workflowId) {
-        const {editing} = this.state;
-        this.setState({
-            editing: Object.assign({[workflowId]: true}, editing)
-        })
-    }
-
-    onFinishEdit(workflowId, fields) {
-        const {editing} = this.state;
-        const isValidEdit = this.validateEdit(fields);
-
-        if (isValidEdit) {
-            // UPDATE_JOB action
-            this.setState({
-                editing: Object.assign({[workflowId]: false}, editing)
-            })
-        }
-    }
-
-    isValidEdit(fields) {
-
     }
 
     _renderWorkflowList() {
@@ -68,6 +46,7 @@ export default class Dashboard extends Component {
                     workflows.map((workflow, i) => {
                         return <WorkflowRow 
                                     key={i} 
+                                    index={i}
                                     workflow={workflow} 
                                     editing={editing[i]}
                                 />
@@ -85,7 +64,7 @@ export default class Dashboard extends Component {
                 className="workflow-list" 
                 style={{backgroundColor: 'lightgrey'}}
             >
-                <h4>{workflowName}</h4>
+                <h4 className="workflow-name">{workflowName}</h4>
                 <img 
                     className="add-job" 
                     src="/src/static/plus.png" 

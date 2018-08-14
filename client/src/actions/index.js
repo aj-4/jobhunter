@@ -1,8 +1,14 @@
+import {
+	performPost,
+	performGet
+} from './actionUtils'
+
 import { 
 	EXAMPLE, 
 	EMAIL_SUB, 
 	NEW_JOB_SEARCH,
-	GET_JOB_SEARCH
+	GET_JOB_SEARCH,
+	NEW_WORKFLOW
 } from './types';
 
 export function ExampleAction(pl) {
@@ -12,30 +18,17 @@ export function ExampleAction(pl) {
     }
 }
 
-function newJobSearch(jobSearchData) {
-	return fetch(
-		'/api/new_job_search',
-		{
-			method: 'POST',
-			body: JSON.stringify(jobSearchData),
-			headers:{
-				'Content-Type': 'application/json'
-			}
-		}
-	)
-}
+// newJobSearch creates a job search w/ associated job workflows
 export function newJobSearchAction(jobSearchData) {
 	return {
 		type: NEW_JOB_SEARCH,
-		payload: newJobSearch(jobSearchData)
+		payload: performPost('/api/new_job_search', jobSearchData)
 	}
 }
 
-export function getJobSearch(jobSearchId) {
-	return fetch(`/api/get_job_search/${jobSearchId}`);
-}
+// getJobSearch returns all workflows associated with a job search
 export function getJobSearchAction(jobSearchId, dispatch) {
-	getJobSearch(jobSearchId)
+	performGet('/api/get_job_search', [jobSearchId])
 	.then(res => res.json())
 	.then(res2 => {
 		return dispatch({
@@ -44,25 +37,23 @@ export function getJobSearchAction(jobSearchId, dispatch) {
 		});
 	})
 	.catch(err => {
-		console.log('got err', err);
+		console.log('got err in getjobsearch', err);
 	})
 }
 
-function emailSubscribe(email) {
-	return fetch(
-		'/api/subscribe', 
-		{
-	  		method: 'POST', 
-	  		body: JSON.stringify({email}), 
-	  		headers:{
-	    		'Content-Type': 'application/json'
-  			}
-  		}
-  	);
-}
 export function emailSubscribeAction(email) {
 	return {
 		type: EMAIL_SUB,
-		payload: emailSubscribe(email)
+		payload: performPost('/api/subscribe', {email})
 	}
+}
+
+// Update or add workflows (POST + Feedback)
+export function addSingleWorkflow(workflowData) {
+	return performPost('/api/new_workflow', workflowData);
+}
+
+export function updateSingleWorkflow(workflowData, workflowId) {
+	workflowData.workflowId = workflowId;
+	return performPost('/api/update_workflow', workflowData);
 }

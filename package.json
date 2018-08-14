@@ -23,6 +23,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "babel-preset-stage-1": "^6.1.18",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",

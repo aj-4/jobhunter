@@ -5,13 +5,18 @@
 }
 
 .add-job {
-    position: inline-block;
+    display: inline-block;
     transition: .1s ease;
 }
 
 .add-job:hover {
     transform: scale(1.2);
     transition: .1s ease;
+    cursor: pointer;
+}
+
+.workflow-name {
+    display: inline-block;
 }
 
 .workflow-list {
@@ -28,4 +33,32 @@
     .company-name {
         display: block;
     }
+}
+
+.workflow-row {
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+
+    .workflow-title {
+        font-size: 20px;
+    }
+    .workflow-company {
+        font-size: 20px;
+        font-weight: bold;        
+    }
+    .workflow-updated {
+        color: grey;
+        text-transform: uppercase;
+        font-size: 12px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-right: 20px;
+    }
+}
+
+.workflow-row:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 3px grey;
 }

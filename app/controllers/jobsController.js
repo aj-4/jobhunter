@@ -47,8 +47,6 @@ const insertWorkflow = (req, workflow) => {
 
 	return db.sync().then(() => {
 
-        console.log('reqbody for wf is ', req.body);
-
             const newWorkflow = {
                 user_id: userId,
     			job_search_id: jobSearchId,
@@ -94,6 +92,16 @@ JobsController.insertWorkflows = (req, res) => {
         });
 
     }
+}
+
+JobsController.insertSingleWorkflow = () => {
+    // TODO
+    res.status(200);
+}
+
+JobsController.updateSingleWorkflow = (req, res) => {
+    // TODO
+    res.status(200);
 }
 
 JobsController.getJobSearch = (req, res) => {

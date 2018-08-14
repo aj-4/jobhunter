@@ -21,6 +21,8 @@ export default class Welcome extends Component {
 
   }
 
+
+  // Refactor to a bulk job loader component
   updateJobRow(jobData, index) {
   	const {jobsAppliedRows} = this.state;
   	const {title, company, status} = jobData;
@@ -77,7 +79,8 @@ export default class Welcome extends Component {
   		jobsAppliedFor.push(
   			<JobInputRow 
   				key={`job-${i}`} 
-  				index={i} 
+				index={i} 
+				bulkLoader={true}
   				updateJobRow={this.updateJobRow.bind(this)}
   			/>
   		);
